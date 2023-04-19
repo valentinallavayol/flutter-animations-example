@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panzetapp/counter/counter.dart';
@@ -33,9 +34,12 @@ class CounterView extends StatelessWidget {
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().decrement(),
-            child: const Icon(Icons.remove),
+          OpenContainer(
+            openBuilder: (context, action) => FloatingActionButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Icon(Icons.remove),
+            ),
+            closedBuilder: (context, action) => Text('holaaaa'),
           ),
         ],
       ),
