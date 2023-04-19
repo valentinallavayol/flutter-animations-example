@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:panzetapp/counter/counter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:panzetapp/carousel/cubit/carousel_cubit.dart';
+import 'package:panzetapp/carousel/view/carousel_screen.dart';
 import 'package:panzetapp/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -16,7 +18,10 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: BlocProvider(
+        create: (context) => CarouselCubit(),
+        child: const AwesomeCarousel(),
+      ),
     );
   }
 }
