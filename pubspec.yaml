@@ -10,6 +10,7 @@ dependencies:
   animations: ^2.0.7  
   bloc: ^8.1.1
   delayed_display: ^2.0.0
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
@@ -20,6 +21,7 @@ dependencies:
   rect_getter: ^1.1.0
   smooth_page_indicator: ^1.0.1
   step_progress_indicator: ^1.0.2
+  transparent_image: ^2.0.1
 
 dev_dependencies:
   bloc_test: ^9.1.1
