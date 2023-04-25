@@ -28,6 +28,7 @@ class _RippleTransitionButtonState extends State<RippleTransitionButton> {
     return Stack(
       alignment: Alignment.center,
       children: [
+        _ripple(context),
         Positioned(
           bottom: 50,
           right: 50,
@@ -43,7 +44,6 @@ class _RippleTransitionButtonState extends State<RippleTransitionButton> {
             ),
           ),
         ),
-        _ripple(context),
       ],
     );
   }

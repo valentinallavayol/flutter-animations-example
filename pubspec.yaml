@@ -10,6 +10,7 @@ dependencies:
   animations: ^2.0.7  
   bloc: ^8.1.1
   delayed_display: ^2.0.0
+  drawing_animation: ^1.0.1
   equatable: ^2.0.3
   flutter:
     sdk: flutter

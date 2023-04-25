@@ -36,10 +36,9 @@ class _BuyButtonState extends State<BuyButton> with TickerProviderStateMixin {
       if (status == AnimationStatus.completed) {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const TicketsSale2();
-            },
+          PageRouteBuilder(
+            transitionDuration: const Duration(seconds: 1),
+            pageBuilder: (_, __, ___) => TicketsSale2(),
             fullscreenDialog: true,
           ),
         );
@@ -63,7 +62,6 @@ class _BuyButtonState extends State<BuyButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 2;
     return GestureDetector(
       onTap: () {
         setState(() {
