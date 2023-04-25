@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:panzetapp/transitions/step_indicator_button/step_indicator_button.dart';
 import 'package:rect_getter/rect_getter.dart';
 
 class RippleTransitionButton extends StatefulWidget {
   const RippleTransitionButton({
     super.key,
+    required Color backgroundColor,
+    required int position,
     required Color backgroundColorNextScreen,
     required Widget nextScreen,
   })  : _backgroundColorNextScreen = backgroundColorNextScreen,
-        _nextScreen = nextScreen;
+        _nextScreen = nextScreen,
+        _backgroundColor = backgroundColor,
+        _position = position;
 
   final Color _backgroundColorNextScreen;
+  final Color _backgroundColor;
+  final int _position;
   final Widget _nextScreen;
 
   @override
@@ -34,12 +41,18 @@ class _RippleTransitionButtonState extends State<RippleTransitionButton> {
           right: 50,
           child: RectGetter(
             key: rectGetterKey,
-            child: FloatingActionButton(
-              backgroundColor: Colors.white,
-              onPressed: () => _onTap(context),
-              child: const Icon(
-                Icons.keyboard_double_arrow_right,
-                color: Colors.black,
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: GestureDetector(
+                onTap: () => _onTap(context),
+                child: StepIndicatorButton(
+                  totalSteps: 3,
+                  filledUntilStep: widget._position,
+                  marginBorder: 8,
+                  filledColor: widget._backgroundColor,
+                  child: Icon(Icons.arrow_forward_ios),
+                ),
               ),
             ),
           ),

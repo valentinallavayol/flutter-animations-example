@@ -34,7 +34,7 @@ abstract class StepIndicatorButtonBorder extends ShapeBorder {
     return backgroundPath(rect, superRadius);
   }
 
-  Path backgroundPath(Rect rect, double superRadius);
+  Path backgroundPath(Rect rect, double superRadius, {bool withBorder = true});
 
   Path _filledPath(Rect rect, double superRadius) {
     var position = 1;
@@ -58,7 +58,26 @@ abstract class StepIndicatorButtonBorder extends ShapeBorder {
     return completePath;
   }
 
-  Path getPath(Rect rect, int position, int total);
+  Path getPath(Rect rect, int position, int total) {
+    final path = backgroundPath(rect, superRadius, withBorder: false);
+    final pathMetric = path.computeMetrics().first;
+    final pathDistance = pathMetric.length;
+    final stepDistance = (pathDistance / totalSteps).round();
+    var startingPoint =
+        stepDistance * (position - 1) + (spaceBetweenIndicators / 2);
+    if (position == 0) startingPoint -= 1;
+    final endPoint = startingPoint + stepDistance - spaceBetweenIndicators;
+    final pointsIncluded = <Offset>[];
+    for (var i = startingPoint; i <= endPoint; i++) {
+      pointsIncluded.add(pathMetric.getTangentForOffset(i)!.position);
+    }
+    final pathToReturn = Path()
+      ..moveTo(pointsIncluded[0].dx, pointsIncluded[0].dy);
+    for (var i = 0; i < pointsIncluded.length; i++) {
+      pathToReturn.lineTo(pointsIncluded[i].dx, pointsIncluded[i].dy);
+    }
+    return pathToReturn;
+  }
 
   @override
   void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {

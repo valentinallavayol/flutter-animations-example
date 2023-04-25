@@ -12,6 +12,7 @@ const summerScreen1 = SummerOnboardingScreen(
   withRippleButton: true,
   nextScreen: summerScreen2,
   colorNext: summerPage2Color,
+  position: 1,
 );
 const summerScreen2 = SummerOnboardingScreen(
   color: summerPage2Color,
@@ -21,6 +22,7 @@ const summerScreen2 = SummerOnboardingScreen(
   withRippleButton: true,
   nextScreen: summerScreen3,
   colorNext: summerPage3Color,
+  position: 2,
 );
 const summerScreen3 = SummerOnboardingScreen(
   color: summerPage3Color,
@@ -28,6 +30,8 @@ const summerScreen3 = SummerOnboardingScreen(
   description: summer3Description,
   image: summer3Image,
   withRippleButton: false,
+  position: 3,
+  colorNext: summerPage1Color,
 );
 
 class SummerTravelOnboarding extends StatelessWidget {

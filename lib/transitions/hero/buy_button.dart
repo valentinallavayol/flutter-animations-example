@@ -34,7 +34,7 @@ class _BuyButtonState extends State<BuyButton> with TickerProviderStateMixin {
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           PageRouteBuilder(
             transitionDuration: const Duration(seconds: 1),

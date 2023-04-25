@@ -36,7 +36,15 @@ class EducationLearning extends StatelessWidget {
                 image: onboarding3Image,
               ),
             ],
-          )
+          ),
+          Positioned(
+            left: 23,
+            top: 53,
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: const Icon(Icons.close),
+            ),
+          ),
         ],
       ),
     );

@@ -30,48 +30,27 @@ class CircleBorder extends StepIndicatorButtonBorder {
   }
 
   @override
-  Path backgroundPath(Rect rect, double superRadius) {
+  Path backgroundPath(
+    Rect rect,
+    double superRadius, {
+    bool withBorder = true,
+  }) {
     final c = rect.center;
-    final cdx = c.dx + marginBorder + (spaceBetweenIndicators / 2);
+    final cdx =
+        c.dx + (spaceBetweenIndicators / 2) + (withBorder ? marginBorder : 0);
     final background = Path()
-      ..moveTo(c.dx, 0 - marginBorder - (spaceBetweenIndicators / 2))
-      ..addOval(
+      ..moveTo(
+        c.dx,
+        0 - (spaceBetweenIndicators / 2) - (withBorder ? marginBorder : 0),
+      )
+      ..addArc(
         Rect.fromCircle(
           center: Offset(c.dx, c.dy),
           radius: cdx,
         ),
+        3 * pi / 2,
+        2 * pi,
       );
-
     return background;
-  }
-
-  @override
-  Path getPath(Rect rect, int position, int total) {
-    final differencePointA = spaceBetweenIndicators / 3;
-    final differencePointB = differencePointA * 2;
-    final path1 = Path()
-      ..addArc(
-        rect,
-        (3 * pi) / 2 + differencePointA,
-        pi / 2 - differencePointB,
-      );
-    final path2 = Path()
-      ..addArc(rect, 0 + differencePointA, pi / 2 - differencePointB);
-    final path3 = Path()
-      ..addArc(rect, pi / 2 + differencePointA, pi / 2 - differencePointB);
-    final path4 = Path()
-      ..addArc(rect, pi + differencePointA, pi / 2 - differencePointB);
-    switch (position) {
-      case 1:
-        return path1;
-      case 2:
-        return path2;
-      case 3:
-        return path3;
-      case 4:
-        return path4;
-      default:
-        return path1;
-    }
   }
 }

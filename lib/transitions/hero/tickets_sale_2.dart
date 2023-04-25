@@ -37,68 +37,85 @@ class _TicketsSale2State extends State<TicketsSale2>
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      animationDuration: Duration.zero,
-      color: Colors.transparent,
-      child: SafeArea(
-        child: FadeSlideTransition(
-          interval: _interval,
-          animationController: _animationController,
-          child: Hero(
-            tag: 'blackBox',
-            createRectTween: TicketsSale2._createRectTween,
-            child: Material(
-              child: ColoredBox(
-                color: Colors.black,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    SizedBox(height: 20),
-                    Text(
-                      'KINOTEKA',
-                      style: TextStyle(
-                        fontFamily: 'LexendDeca',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        letterSpacing: 0.8,
-                        color: Colors.white,
-                      ),
+    return Stack(
+      children: [
+        Material(
+          animationDuration: Duration.zero,
+          color: Colors.transparent,
+          child: SafeArea(
+            child: FadeSlideTransition(
+              interval: _interval,
+              animationController: _animationController,
+              child: Hero(
+                tag: 'blackBox',
+                createRectTween: TicketsSale2._createRectTween,
+                child: Material(
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(height: 20),
+                        Text(
+                          'KINOTEKA',
+                          style: TextStyle(
+                            fontFamily: 'LexendDeca',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            letterSpacing: 0.8,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(height: 20),
+                        Image(
+                          image: AssetImage(ticketImage),
+                          height: 540,
+                        ),
+                        SizedBox(height: 20),
+                        Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'THANKS FOR THE PURCHASE!',
+                          style: TextStyle(
+                            fontFamily: 'LexendDeca',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            letterSpacing: 0.8,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20),
-                    Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 20),
-                    Image(
-                      image: AssetImage(ticketImage),
-                      height: 540,
-                    ),
-                    SizedBox(height: 20),
-                    Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      'THANKS FOR THE PURCHASE!',
-                      style: TextStyle(
-                        fontFamily: 'LexendDeca',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                        letterSpacing: 0.8,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
+        Positioned(
+          left: 33,
+          top: 40,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -15,7 +15,7 @@ class StepIndicatorButton extends StatelessWidget {
     Color filledColor = const Color.fromRGBO(214, 189, 201, 1),
     Color emptyColor = const Color.fromRGBO(242, 242, 242, 1),
     double marginBorder = 10,
-    double spaceBetweenIndicators = 0.3,
+    double spaceBetweenIndicators = 5,
     Widget? child,
     required int totalSteps,
     required int filledUntilStep,
