@@ -1,9 +1,8 @@
 import 'dart:ui';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:panzetapp/transitions/hero/close_button.dart';
 import 'package:panzetapp/carousel/widgets/animations/fade_slide_transition.dart';
-import 'package:panzetapp/transitions/hero/constants/colors.dart';
 import 'package:panzetapp/transitions/hero/constants/paths.dart';
 
 class TicketsSale2 extends StatefulWidget {
@@ -37,22 +36,22 @@ class _TicketsSale2State extends State<TicketsSale2>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Material(
-          animationDuration: Duration.zero,
-          color: Colors.transparent,
-          child: SafeArea(
-            child: FadeSlideTransition(
-              interval: _interval,
-              animationController: _animationController,
-              child: Hero(
-                tag: 'blackBox',
-                createRectTween: TicketsSale2._createRectTween,
-                child: Material(
-                  child: ColoredBox(
-                    color: Colors.black,
-                    child: Column(
+    return Material(
+      animationDuration: Duration.zero,
+      color: Colors.transparent,
+      child: SafeArea(
+        child: FadeSlideTransition(
+          interval: _interval,
+          animationController: _animationController,
+          child: Hero(
+            tag: 'blackBox',
+            createRectTween: TicketsSale2._createRectTween,
+            child: Material(
+              child: ColoredBox(
+                color: Colors.black,
+                child: Stack(
+                  children: [
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         SizedBox(height: 20),
@@ -96,26 +95,14 @@ class _TicketsSale2State extends State<TicketsSale2>
                         ),
                       ],
                     ),
-                  ),
+                    const CustomCloseButton(),
+                  ],
                 ),
               ),
             ),
           ),
         ),
-        Positioned(
-          left: 33,
-          top: 40,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: const Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

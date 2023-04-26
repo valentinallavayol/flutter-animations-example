@@ -22,11 +22,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: HomeScreen(),
-      // home: BlocProvider(
-      //   create: (context) => CarouselCubit(),
-      //   child: const AwesomeCarousel(),
-      // ),
+      home: const HomeScreen(),
     );
   }
 }
