@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       home: BlocProvider(
         create: (context) => CarouselCubit(),
-        child: const AwesomeCarousel(),
+        child: const CarouselExample(),
       ),
     );
   }

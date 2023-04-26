@@ -25,8 +25,8 @@ class _DetailContentState extends State<DetailContent>
   @override
   void initState() {
     super.initState();
-    _directorTitleInterval = const Interval(0.08, 0.21, curve: Curves.easeOut);
-    _introductionInterval = const Interval(0.24, 0.30, curve: Curves.easeInOut);
+    _directorTitleInterval = const Interval(0.12, 0.30, curve: Curves.easeOut);
+    _introductionInterval = const Interval(0.30, 0.50, curve: Curves.easeInOut);
   }
 
   @override

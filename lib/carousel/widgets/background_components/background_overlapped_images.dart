@@ -1,5 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+
 import 'package:panzetapp/carousel/dummy_data.dart';
+import 'package:panzetapp/carousel/widgets/card_components/rounded_image.dart';
 
 class OverlappedImages extends StatelessWidget {
   const OverlappedImages({
@@ -14,32 +17,29 @@ class OverlappedImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final animations = _buildImagesAnimation();
+    final fadeAnimations = _buildImagesFadeAnimation();
     final sideImages = _findSideImages();
     return Stack(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: _buildBackgroundDetailImage(
-                animation: animations[1],
-                imageUrl: sideImages[0],
-              ),
-            ),
-            Flexible(
-              child: _buildBackgroundDetailImage(
-                animation: animations[2],
-                imageUrl: sideImages[1],
-              ),
-            ),
-          ],
+          children: sideImages
+              .mapIndexed(
+                (index, image) => Flexible(
+                  child: _buildBackgroundDetailImage(
+                    animation: animations[index + 1],
+                    fadeAnimation: fadeAnimations[index + 1],
+                    imageUrl: image,
+                  ),
+                ),
+              )
+              .toList(),
         ),
-        Flexible(
-          child: _buildBackgroundDetailImage(
-            isFrontImage: true,
-            animation: animations[0],
-            imageUrl: selectedImageUrl,
-          ),
+        _buildBackgroundDetailImage(
+          isFrontImage: true,
+          animation: animations[0],
+          fadeAnimation: fadeAnimations[0],
+          imageUrl: selectedImageUrl,
         ),
       ],
     );
@@ -58,18 +58,22 @@ class OverlappedImages extends StatelessWidget {
     return [data[selectedImageIndex - 1], data[selectedImageIndex + 1]];
   }
 
-  List<Animation<AlignmentGeometry>> _buildImagesAnimation() {
-    final animationIntervals = List.generate(
+  List<Interval> _buildAnimationIntervals() {
+    return List.generate(
       3,
       (index) {
-        final offset = 0.04 * index;
+        final offset = 0.075 * index;
         return Interval(
-          0.10 + offset,
-          0.40 + offset,
+          0.3 + offset,
+          0.85 + offset,
           curve: const ElasticOutCurve(0.6),
         );
       },
     );
+  }
+
+  List<Animation<AlignmentGeometry>> _buildImagesAnimation() {
+    final animationIntervals = _buildAnimationIntervals();
 
     return animationIntervals
         .map(
@@ -83,36 +87,43 @@ class OverlappedImages extends StatelessWidget {
         .toList();
   }
 
+  List<Animation<double>> _buildImagesFadeAnimation() {
+    final animationIntervals = _buildAnimationIntervals();
+
+    return animationIntervals
+        .map(
+          (interval) => Tween<double>(
+            begin: 0,
+            end: 1,
+          ).animate(
+            CurvedAnimation(parent: animationController, curve: interval),
+          ),
+        )
+        .toList();
+  }
+
   Widget _buildBackgroundDetailImage({
     bool isFrontImage = false,
     required String imageUrl,
     required Animation<AlignmentGeometry> animation,
+    required Animation<double> fadeAnimation,
   }) {
-    final verticalMargin = isFrontImage ? 80.0 : 140.0;
+    final verticalMargin = isFrontImage ? 50.0 : 110.0;
     final horizontalMargin = isFrontImage ? 90.0 : 0.0;
-    return AlignTransition(
-      alignment: animation,
-      child: FractionallySizedBox(
-        widthFactor: 0.95,
-        child: Container(
+    return FadeTransition(
+      opacity: fadeAnimation,
+      child: AlignTransition(
+        alignment: animation,
+        child: RoundedImage(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           margin: EdgeInsets.symmetric(
             vertical: verticalMargin,
             horizontal: horizontalMargin,
           ),
           height: 300,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: !isFrontImage
-              ? ColoredBox(
-                  color: Colors.black.withOpacity(0.3),
-                  child: Container(),
-                )
-              : null,
+          imageUrl: imageUrl,
+          radius: BorderRadius.circular(16),
+          child: Container(),
         ),
       ),
     );

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:panzetapp/carousel/constants.dart';
 
 class ImageCard extends StatelessWidget {
   const ImageCard({
@@ -16,16 +18,15 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // timeDilation = 6.0;
     return GestureDetector(
       onTap: onPressed.call,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // TODO(valentinaLlavayol) : Try to make this animation better
           Container(
             margin: const EdgeInsets.all(16),
-            height: 350,
+            height: MediaQuery.of(context).size.height *
+                CarouselConstants.cardImageHeightPct,
           ),
           ClipRect(
             clipper: RectangleClipper(imageAnimation.value),
@@ -36,7 +37,7 @@ class ImageCard extends StatelessWidget {
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(imageUrl),
+                  image: CachedNetworkImageProvider(imageUrl),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(32),
