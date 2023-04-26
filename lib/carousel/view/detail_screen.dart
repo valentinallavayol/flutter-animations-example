@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:panzetapp/carousel/widgets/background_overlapped_images.dart';
+import 'package:panzetapp/carousel/widgets/background_components/background_gradient.dart';
+import 'package:panzetapp/carousel/widgets/background_components/background_overlapped_images.dart';
 import 'package:panzetapp/carousel/widgets/card_components/card_button.dart';
 import 'package:panzetapp/carousel/widgets/card_components/card_container.dart';
 import 'package:panzetapp/carousel/widgets/detail_content.dart';
@@ -26,32 +26,25 @@ class _DetailScreenState extends State<DetailScreen>
 
     _animationController = AnimationController(
       vsync: this,
-      // duration: const Duration(seconds: 4),
-      duration: const Duration(seconds: 4),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     _cardAnimation = Tween<double>(
-      begin: 0.8,
+      begin: 0.75,
       end: 1,
     ).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0, 0.10, curve: Curves.easeOut),
-        // curve: const Interval(0, 0.07, curve: Curves.easeOut),
+        curve: const Interval(0, 0.3, curve: Curves.easeOut),
       ),
     )..addListener(() {
         setState(() {});
       });
 
-    _buttonAnimation = Tween<double>(
-      begin: 42,
-      end: 16,
-    ).animate(
+    _buttonAnimation = Tween<double>(begin: 42, end: 16).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.02, 0.10, curve: Curves.easeOut),
-        // curve: const Interval(0.02, 0.10, curve: Curves.easeOut),
-        // curve: const Interval(0.06, 0.13, curve: Curves.easeOut),
+        curve: const Interval(0.15, 0.27, curve: Curves.easeOut),
       ),
     );
   }
@@ -67,10 +60,11 @@ class _DetailScreenState extends State<DetailScreen>
             animationController: _animationController,
             selectedImageUrl: widget.imageUrl,
           ),
+          const BackgroundGradient(),
           CardContainer(
-            heightFactor: 0.75,
+            heightFactor: 0.79,
             widthFactor: _cardAnimation.value,
-            margin: const EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 50),
             padding: const EdgeInsets.all(24),
             child: DetailContent(
               imageUrl: widget.imageUrl,
@@ -79,14 +73,36 @@ class _DetailScreenState extends State<DetailScreen>
           ),
           CardButton(
             margin: EdgeInsets.symmetric(
-                horizontal: _buttonAnimation.value, vertical: 24),
-            onPressed: () {
-              _animationController.reverse();
-              Navigator.pop(context);
-            },
-          )
+              horizontal: _buttonAnimation.value,
+              vertical: 24,
+            ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(top: 32),
+            child: IconButton(
+              splashRadius: 16,
+              splashColor: Colors.black12,
+              onPressed: () async {
+                await _animationController
+                    .animateBack(
+                      0,
+                      duration: const Duration(milliseconds: 1500),
+                    )
+                    // .reverse()
+                    .whenComplete(() => Navigator.pop(context));
+              },
+              icon: const Icon(Icons.close, color: Colors.white),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }

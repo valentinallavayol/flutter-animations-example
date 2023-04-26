@@ -2,65 +2,74 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panzetapp/carousel/cubit/carousel_cubit.dart';
 import 'package:panzetapp/carousel/dummy_data.dart';
-import 'package:panzetapp/carousel/widgets/background_image_switcher.dart';
+import 'package:panzetapp/carousel/widgets/animated_pages.dart';
+import 'package:panzetapp/carousel/widgets/background_components/background_gradient.dart';
+import 'package:panzetapp/carousel/widgets/background_components/image_slider.dart';
 import 'package:panzetapp/carousel/widgets/card_components/card_button.dart';
 import 'package:panzetapp/carousel/widgets/carousel_card_content.dart';
 
-class AwesomeCarousel extends StatefulWidget {
-  const AwesomeCarousel({super.key});
+class CarouselExample extends StatefulWidget {
+  const CarouselExample({super.key});
 
   @override
-  AwesomeCarouselState createState() => AwesomeCarouselState();
+  CarouselExampleState createState() => CarouselExampleState();
 }
 
-class AwesomeCarouselState extends State<AwesomeCarousel> {
-  final backgroundPageView = PageController();
-  late PageController cardPageView;
+class CarouselExampleState extends State<CarouselExample> {
+  late PageController _cardPageController;
 
   @override
   void initState() {
     super.initState();
 
-    cardPageView = PageController(viewportFraction: 0.8)
-      ..addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    final scrollValue = cardPageView.page ?? 0;
-    backgroundPageView.jumpTo(scrollValue * MediaQuery.of(context).size.width);
+    _cardPageController = PageController(viewportFraction: 0.8)
+      ..addListener(() {
+        context
+            .read<CarouselCubit>()
+            .setSelectedPage(_cardPageController.page!);
+      });
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentPage = context.watch<CarouselCubit>().state.selectedPage;
+    final currentPage = context.watch<CarouselCubit>().state;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
-        alignment: Alignment.center,
         children: [
-          BackgroundImageSwitcher(
-            imageUrl: data[currentPage],
-            controller: backgroundPageView,
+          Stack(
+            children: data.reversed
+                .map(
+                  (movie) => ImageSlider(
+                    pageValue: currentPage,
+                    image: movie,
+                    index: data.indexOf(movie),
+                  ),
+                )
+                .toList(),
           ),
-          FractionallySizedBox(
-            heightFactor: 0.75,
-            child: PageView.builder(
-              controller: cardPageView..addListener(_onScroll),
-              itemCount: data.length,
-              onPageChanged: context.read<CarouselCubit>().setSelectedPage,
-              itemBuilder: (BuildContext context, int index) {
-                final active = index == currentPage;
-                return CarouselCardContent(
-                    imageUrl: data[index], isActive: active);
-              },
+          const BackgroundGradient(),
+          AnimatedPages(
+            pageController: _cardPageController,
+            pageValue: currentPage,
+            childBuiler: (index, __) => CarouselCardContent(
+              imageUrl: data[index],
+              isActive:
+                  index == currentPage.ceil() || index == currentPage.floor(),
             ),
+            pageCount: data.length,
           ),
-          CardButton(
-            margin: const EdgeInsets.symmetric(horizontal: 42, vertical: 24),
-            onPressed: () {},
+          const CardButton(
+            margin: EdgeInsets.symmetric(horizontal: 42, vertical: 24),
           )
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _cardPageController.dispose();
+    super.dispose();
   }
 }

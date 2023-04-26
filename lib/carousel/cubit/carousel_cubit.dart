@@ -1,10 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panzetapp/carousel/cubit/carousel_state.dart';
 
-class CarouselCubit extends Cubit<CarouselState> {
-  CarouselCubit() : super(const CarouselState());
+class CarouselCubit extends Cubit<double> {
+  CarouselCubit() : super(0);
 
-  void setSelectedPage(int selectedPage) {
-    emit(CarouselState(selectedPage: selectedPage));
-  }
+  void setSelectedPage(double selectedPage) => emit(selectedPage);
 }

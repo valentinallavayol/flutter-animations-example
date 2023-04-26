@@ -11,6 +11,7 @@ dependencies:
   bloc: ^8.1.1
   delayed_display: ^2.0.0
   drawing_animation: ^1.0.1
+  cached_network_image: ^3.2.3
   equatable: ^2.0.3
   flutter:
     sdk: flutter

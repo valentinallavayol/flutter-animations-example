@@ -1,13 +1,11 @@
 List<String> data = [
   'https://cdn.shopify.com/s/files/1/1057/4964/products/Joker-Vintage-Movie-Poster-Original-Bus-Stop-48x70_9824def5-900b-4d29-ae2d-0277316895a0.jpg?v=1668661284',
   'https://m.media-amazon.com/images/M/MV5BMTc1NjIzODAxMF5BMl5BanBnXkFtZTgwMTgzNzk1NzM@._V1_.jpg',
-  'https://m.media-amazon.com/images/M/MV5BMTc3MDcyNzE5N15BMl5BanBnXkFtZTgwNzE2MDE0NzM@._V1_.jpg',
+  'https://s3.amazonaws.com/static.rogerebert.com/uploads/movie/movie_poster/the-hustle-2019/large_hustle-poster.jpg',
   // 'https://cdn.dribbble.com/users/3281732/screenshots/10940512/media/b2a8ea95c550e5f09d0ca07682a3c0da.jpg?compress=1&resize=600x600',
   // 'https://cdn.dribbble.com/users/3281732/screenshots/8616916/media/a7e39b15640f8883212421d134013e38.jpg?compress=1&resize=600x600',
   // 'https://cdn.dribbble.com/users/3281732/screenshots/6590709/samji_illustrator.jpg?compress=1&resize=600x600',
 ];
-
-List<String> movieChips = ['Action', 'Drama', 'History'];
 
 List<String> actors = [
   'https://m.media-amazon.com/images/M/MV5BODI0MTYzNTIxNl5BMl5BanBnXkFtZTcwNjg2Nzc0NA@@._V1_.jpg',

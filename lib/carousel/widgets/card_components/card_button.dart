@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 class CardButton extends StatelessWidget {
   const CardButton({
     super.key,
-    required this.onPressed,
     required this.margin,
   });
 
-  final VoidCallback onPressed;
   final EdgeInsetsGeometry margin;
 
   @override
@@ -24,7 +22,7 @@ class CardButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          onPressed: onPressed,
+          onPressed: () {},
           child: SizedBox(
             height: 45,
             width: double.infinity,
