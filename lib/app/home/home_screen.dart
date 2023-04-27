@@ -6,6 +6,7 @@ import 'package:panzetapp/app/home/home_card.dart';
 import 'package:panzetapp/carousel/cubit/carousel_cubit.dart';
 import 'package:panzetapp/carousel/view/carousel_screen.dart';
 import 'package:panzetapp/parallax/parallax_example.dart';
+import 'package:panzetapp/todo/view/todo_example.dart';
 import 'package:panzetapp/transitions/hero/tickets_sale_1.dart';
 import 'package:panzetapp/transitions/liquid/education_learning.dart';
 import 'package:panzetapp/transitions/ripple/summer_travel.dart';
@@ -28,6 +29,11 @@ final data = <Category>[
         'Cinema Tickets Sale',
         'Hero Transition',
         const TicketsSale1(),
+      ),
+      CategoryItem(
+        'To-Do List',
+        'Card Hero Transition',
+        const TodoExample(),
       ),
       CategoryItem(
         'Cinema Carousel',
