@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panzetapp/app/home/category.dart';
 import 'package:panzetapp/app/home/category_title.dart';
 import 'package:panzetapp/app/home/home_card.dart';
+import 'package:panzetapp/carousel/cubit/carousel_cubit.dart';
+import 'package:panzetapp/carousel/view/carousel_screen.dart';
+import 'package:panzetapp/parallax/parallax_example.dart';
 import 'package:panzetapp/transitions/hero/tickets_sale_1.dart';
 import 'package:panzetapp/transitions/liquid/education_learning.dart';
 import 'package:panzetapp/transitions/ripple/summer_travel.dart';
@@ -24,6 +28,24 @@ final data = <Category>[
         'Cinema Tickets Sale',
         'Hero Transition',
         const TicketsSale1(),
+      ),
+      CategoryItem(
+        'Cinema Carousel',
+        'Epic Transitions',
+        BlocProvider(
+          create: (context) => CarouselCubit(),
+          child: const CarouselExample(),
+        ),
+      ),
+    ],
+  ),
+  Category(
+    'Animations',
+    <CategoryItem>[
+      CategoryItem(
+        'Explore places',
+        'Parallax',
+        const ParallaxExample(),
       ),
     ],
   ),

@@ -61,7 +61,12 @@ class CarouselExampleState extends State<CarouselExample> {
           ),
           const CardButton(
             margin: EdgeInsets.symmetric(horizontal: 42, vertical: 24),
-          )
+          ),
+          const Positioned(
+            left: 23,
+            top: 53,
+            child: CloseButton(color: Colors.white),
+          ),
         ],
       ),
     );

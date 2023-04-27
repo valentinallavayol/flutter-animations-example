@@ -8,7 +8,7 @@ class CategoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, bottom: 15),
+      padding: const EdgeInsets.only(left: 20, bottom: 15, top: 15),
       child: Text(
         _title.toUpperCase(),
         style: const TextStyle(

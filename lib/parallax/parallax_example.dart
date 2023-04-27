@@ -9,14 +9,23 @@ class ParallaxExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: [
-          const SizedBox(height: 76),
-          buildHeader(),
-          const SizedBox(height: 16),
-          const AllDestinations(padding: _padding, spacing: _spacing),
-          const SizedBox(height: 36),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 76),
+              buildHeader(),
+              const SizedBox(height: 16),
+              const AllDestinations(padding: _padding, spacing: _spacing),
+              const SizedBox(height: 36),
+            ],
+          ),
+          const Positioned(
+            left: 23,
+            top: 53,
+            child: CloseButton(),
+          ),
         ],
       ),
     );
